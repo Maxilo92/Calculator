@@ -1,5 +1,3 @@
-test_term = "1+"
-
 def cleanUp(formula):
     formulaClean = ""
 
@@ -34,25 +32,28 @@ def tokenize(term:str):
     tokens.append(last_char)
     return tokens
 
-tokens = tokenize(cleanUp(test_term))
-print(tokens)
-
 def doMeth(num1,op,num2):
+    result = 0
     match op:
         case "+":
-            return str(float(num1) + float(num2))
+            result = float(num1) + float(num2)
         case "-":
-            return str(float(num1) - float(num2))
+            result = float(num1) - float(num2)
         case "*":
-            return str(float(num1) * float(num2))
+            result = float(num1) * float(num2)
         case "/":
-            return str(float(num1) / float(num2))
+            result = float(num1) / float(num2)
+    
+    # Wenn das Ergebnis eine ganze Zahl ist, gib int zurück
+    if result == int(result):
+        return str(int(result))
+    return str(result)
 
 def firstSolve(tokens):
     while any(op in tokens for op in ["*", "/"]):
         for i in range(len(tokens)):
             if tokens[i] in ["*","/"]:
-                print(f"{tokens[i-1]}{tokens[i]}{tokens[i+1]}={doMeth(tokens[i-1],tokens[i],tokens[i+1])}")
+                # print(f"{tokens[i-1]}{tokens[i]}{tokens[i+1]}={doMeth(tokens[i-1],tokens[i],tokens[i+1])}")
                 asw = doMeth(tokens[i-1],tokens[i],tokens[i+1])
                 del tokens[i-1]
                 del tokens[i-1]
@@ -65,7 +66,7 @@ def secondSolve(tokens):
     while any(op in tokens for op in ["+", "-"]):
         for i in range(len(tokens)):
             if tokens[i] in ["+","-"]:
-                print(f"{tokens[i-1]}{tokens[i]}{tokens[i+1]}={doMeth(tokens[i-1],tokens[i],tokens[i+1])}")
+                # print(f"{tokens[i-1]}{tokens[i]}{tokens[i+1]}={doMeth(tokens[i-1],tokens[i],tokens[i+1])}")
                 asw = doMeth(tokens[i-1],tokens[i],tokens[i+1])
                 del tokens[i-1]
                 del tokens[i-1]
@@ -79,4 +80,9 @@ def solveTokens(tokens):
     # print(solveOne)
     return secondSolve(solveOne)
 
-print(f"Ergebniss: {solveTokens(tokens)[0]}")
+def calc(term:str):
+    tokens = tokenize(cleanUp(term))
+    return solveTokens(tokens)[0]
+
+if __name__ == "__main__":
+    print(f"Ergebniss: {calc("2+23")}")
