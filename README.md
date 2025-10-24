@@ -1,2 +1,2 @@
 # Calculator
-It does Math.
+It does Math. Not much, but I'm impressed that it even works.
