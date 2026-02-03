@@ -8,7 +8,7 @@ def calculate():
     result_label.config(text=f"= {result}")
 
 root = Tk()
-root.title("Calculator 0.1.3 Beta")
+root.title("Calculator 0.1.4 Beta")
 root.minsize(400, 150)
 frm = ttk.Frame(root, padding=10)
 frm.grid(sticky="nsew")

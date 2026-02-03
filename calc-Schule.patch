@@ -1,0 +1,64 @@
+From 6e7f0ef616f04cb883b7d489e1e9387844a2b751 Mon Sep 17 00:00:00 2001
+From: Priesnitz <priesnitz.maximilian>
+Date: Tue, 3 Feb 2026 08:30:07 +0100
+Subject: [PATCH] testcommit
+
+---
+ Calc/Backend.py  | 3 +++
+ Calc/Frontend.py | 2 +-
+ README.md        | 9 +++++++++
+ 3 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/Calc/Backend.py b/Calc/Backend.py
+index be4e0b8..a76adbf 100644
+--- a/Calc/Backend.py
++++ b/Calc/Backend.py
+@@ -15,6 +15,8 @@ def tokenize(term:str):
+     for i in term:
+         if counter == 0:
+             last_char = i
++        elif counter == 1 and last_char in ["+", "-" ,"*", "/"]:
++            raise ValueError("Leading operator")
+         else:
+             if i != " ":
+                 match last_char.isdigit(),i.isdigit():
+@@ -28,6 +30,7 @@ def tokenize(term:str):
+                         last_char = i
+                     case True,True:
+                         last_char += i 
++        
+         counter += 1
+     tokens.append(last_char)
+     return tokens
+diff --git a/Calc/Frontend.py b/Calc/Frontend.py
+index f9f3ccc..6efda48 100644
+--- a/Calc/Frontend.py
++++ b/Calc/Frontend.py
+@@ -8,7 +8,7 @@ def calculate():
+     result_label.config(text=f"= {result}")
+ 
+ root = Tk()
+-root.title("Calculator 0.1.3 Beta")
++root.title("Calculator 0.1.4 Beta")
+ root.minsize(400, 150)
+ frm = ttk.Frame(root, padding=10)
+ frm.grid(sticky="nsew")
+diff --git a/README.md b/README.md
+index af26ac9..f46007f 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,11 @@
+ # Calculator
+ It does Math. Not much, but I'm impressed that it even works.
++
++## Features
++- Math.
++- it can only take positive integers as input aswell as "+", "-" ,"*", "/"
++- but can output floats ans int
++- it respects calculation rules!
++
++### Example
++12+34*56/7=284 👍
+-- 
+2.52.0.windows.1
+
